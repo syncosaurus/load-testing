@@ -1,0 +1,11 @@
+config:
+  target: "ws://localhost:8787?room=foo"
+  phases:
+    - duration: 5
+      arrivalRate: 10
+scenarios:
+  - name: Connection testing
+    engine: ws # Enable the Socket.io engine
+    flow:
+      - connect: "{{ target }}/?room=foo"
+      - send: '{"init":true}'
