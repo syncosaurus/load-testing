@@ -1,0 +1,16 @@
+{
+  "name": "syncosaurus-load-testing",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "test": "artillery run syncosaurus-do-test.yml",
+    "debug": "DEBUG=ws artillery run syncosaurus-do-test.yml"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "artillery": "^2.0.8",
+    "nanoid": "^5.0.6"
+  }
+}

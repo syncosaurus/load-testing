@@ -1,11 +1,47 @@
 config:
-  target: "ws://localhost:8787?room=foo"
+  # target: "wss://asdfasdf.sklarfox.workers.dev?room=foo"
+  target: "ws://localhost:8787"
   phases:
-    - duration: 5
-      arrivalRate: 10
+    - duration: 2
+      arrivalRate: 20
+      name: Adding users to room
+  processor: "./doTestFunctions.mjs"
 scenarios:
-  - name: Connection testing
-    engine: ws # Enable the Socket.io engine
+  - name: User enters a room and sends intermittent presence data
+    engine: ws
     flow:
       - connect: "{{ target }}/?room=foo"
-      - send: '{"init":true}'
+      - function: "generateClientId"
+      - send:
+          init: true
+          clientID: "{{ clientID }}"
+      - think: 1
+      - loop:
+          - function: "generateCoordinates"
+          - loop:
+              - send:
+                  presence: "{{ coordinates }}"
+                  clientID: "{{ clientID }}"
+            count: 120
+          - think: 1
+        count: 10
+    weight: 1
+
+  - name: User sends an increment every second
+    engine: ws
+    flow:
+      - connect: "{{ target }}/?room=foo"
+      - function: "generateClientId"
+      - send:
+          init: true
+          clientID: "{{ clientID }}"
+      - think: 2
+      - loop:
+          - send:
+              clientID: "{{ clientID }}"
+              transactionID: 1234
+              mutator: "increment"
+              mutatorArgs: { key: "count", delta: 1 }
+          - think: 1
+        count: 10
+    weight: 5
