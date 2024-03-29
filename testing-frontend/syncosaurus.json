@@ -1,0 +1,10 @@
+
+  {
+    "projectName": "testing-frontend",
+    "compatibilityDate": "2024-03-29",
+    "encryption": false,
+    "authentication": false,
+    "serverMsgFrequency": 16,
+    "enableRoomStorage": false
+  }
+  
