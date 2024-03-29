@@ -1,13 +1,12 @@
 config:
-  # target: "wss://asdfasdf.sklarfox.workers.dev?room=foo"
-  target: "ws://localhost:8787"
+  target: "wss://websocket-server.sklarfox.workers.dev"
   phases:
-    - duration: 2
-      arrivalRate: 20
+    - duration: 10
+      arrivalRate: 50
       name: Adding users to room
   processor: "./doTestFunctions.mjs"
 scenarios:
-  - name: User enters a room and sends intermittent presence data
+  - name: PresenceData
     engine: ws
     flow:
       - connect: "{{ target }}/?room=foo"
@@ -25,9 +24,8 @@ scenarios:
             count: 120
           - think: 1
         count: 10
-    weight: 1
 
-  - name: User sends an increment every second
+  - name: SubmitIncrement
     engine: ws
     flow:
       - connect: "{{ target }}/?room=foo"
@@ -44,4 +42,3 @@ scenarios:
               mutatorArgs: { key: "count", delta: 1 }
           - think: 1
         count: 10
-    weight: 5

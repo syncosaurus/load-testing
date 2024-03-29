@@ -1,28 +1,31 @@
-import {useEffect} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import syncosaurusLogo from './assets/DarkBlueLogo.png'
-import './App.css'
+import { useEffect } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import syncosaurusLogo from "./assets/DarkBlueLogo.png";
+import "./App.css";
 
-import Syncosaurus from 'syncosaurus'
-import {useSubscribe} from 'syncosaurus'
-import mutators from './mutators.js'
-import Cursors from './components/cursors.jsx'
+import Syncosaurus from "./syncosaurus-framerate-testing.js";
+import { useSubscribe } from "syncosaurus";
+import mutators from "./mutators.js";
+import Cursors from "./components/cursors.jsx";
 
-
-const synco = new Syncosaurus({mutators, userID: String(Math.random()), server: 'ws://localhost:8787'})
+const synco = new Syncosaurus({
+  mutators,
+  userID: String(Math.random()),
+  server: import.meta.env.VITE_DO_URL,
+});
 
 function App() {
-  const count = useSubscribe(synco, (tx) => tx.get('count'), 0)
+  const count = useSubscribe(synco, (tx) => tx.get("count"), 0);
 
   useEffect(() => {
-    synco.launch('foo')
-  }, [])
+    synco.launch("foo");
+  }, []);
 
   const handleClick = (e) => {
-    e.preventDefault()
-    synco.mutate.increment({key: 'count', delta: 1})
-  }
+    e.preventDefault();
+    synco.mutate.increment({ key: "count", delta: 1 });
+  };
 
   return (
     <>
@@ -35,7 +38,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
         <a href="https://github.com/syncosaurus/syncosaurus" target="_blank">
-          <img src={syncosaurusLogo} className='logo' alt="Syncosaurus logo" />
+          <img src={syncosaurusLogo} className="logo" alt="Syncosaurus logo" />
         </a>
       </div>
       <h1>Vite + React + Syncosaurus</h1>
@@ -45,9 +48,11 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">Click on the Vite, React, and Syncosaurus logos to learn more</p>
+      <p className="read-the-docs">
+        Click on the Vite, React, and Syncosaurus logos to learn more
+      </p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

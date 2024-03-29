@@ -5,12 +5,15 @@
   "type": "module",
   "scripts": {
     "test": "artillery run syncosaurus-do-test.yml",
-    "debug": "DEBUG=ws artillery run syncosaurus-do-test.yml"
+    "debug": "DEBUG=ws artillery run syncosaurus-do-test.yml",
+    "presence": "artillery run --scenario-name PresenceData syncosaurus-do-test.yml",
+    "increment": "artillery run --scenario-name SubmitIncrement syncosaurus-do-test.yml"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "artillery": "^2.0.8",
+    "dotenv": "^16.4.5",
     "nanoid": "^5.0.6"
   }
 }

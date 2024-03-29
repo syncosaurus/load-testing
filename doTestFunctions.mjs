@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid";
+import "dotenv/config";
 
 export async function generateClientId(userContext, _events) {
   const clientID = nanoid();
@@ -10,4 +11,8 @@ export async function generateCoordinates(userContext, _events) {
   const y = Math.floor(Math.random() * 1000);
 
   userContext.vars.coordinates = { x, y };
+}
+
+export async function getTargetUrl() {
+  console.log(process.env.DO_URL);
 }

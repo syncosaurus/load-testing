@@ -2,7 +2,7 @@ import {
   WriteTransaction,
   ReadTransaction,
 } from "../node_modules/syncosaurus/src/transactions.js";
-import { validateSyncosaurusOptions } from "../node_modules/syncosaurus/utils/utils.js";
+import { validateSyncosaurusOptions } from "../node_modules/syncosaurus/src/utils/utils.js";
 import { nanoid } from "nanoid";
 
 export default class Syncosaurus {
@@ -18,6 +18,21 @@ export default class Syncosaurus {
     this.auth = auth;
     this.mutators = mutators;
     this.initializeMutators();
+    // CUSTOM framerate calculation
+    this.previousFrameTime = Date.now();
+    this.fpsSamples = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+  }
+
+  calculateFramerate() {
+    const currTime = Date.now();
+    const elapsedTime = currTime - this.previousFrameTime;
+    this.previousFrameTime = currTime;
+    const fps = 1000 / elapsedTime;
+    this.fpsSamples = this.fpsSamples.slice(1).concat(fps);
+    console.log(
+      "Current framerate",
+      Math.floor(this.fpsSamples.reduce((a, v) => a + v) / 10)
+    );
   }
 
   subscribe(query, callback) {
