@@ -6,7 +6,9 @@ You must have a Syncosaurus Durable Object (SDO), either running locally on a de
 
 The SDO must have an `increment` mutator defined, as this is used by the Virtual Users (VUs) during load testing.
 
-It is assumed you are familiar with Artillery, and the syntax contained in an Artillery `.yml` test file.
+If you do not have an SDO up and running, you can utilize the [Syncosaurus CLI](https://github.com/syncosaurus/syncosaurus-cli) `init` command to quickly generate a load test compatible project.
+
+It is assumed you are familiar with Artillery load testing, and the syntax contained in an Artillery `.yml` test file.
 
 ## Quick Start
 This package includes a simple ready made test. If you have an SDO running locally on port `8787`, all you need to do to run your first test is `npm run test`.
